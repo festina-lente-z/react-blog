@@ -6,7 +6,6 @@
   background-color: lightblue;
   background-repeat: no-repeat;
   background-size: contain;
-  border: 1px solid #ccc;
   .person {
     position: absolute;
     bottom: 0;
@@ -23,12 +22,13 @@
     }
     .title {
       line-height: 50px;
+      margin-top: 10px;
       margin-left: 280px;
       font-size: 28px;
       color: #000;
     }
     .description {
-      line-height: 32px;
+      line-height: 36px;
       margin-left: 280px;
       font-size: 18px;
       color: #333;
