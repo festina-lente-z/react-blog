@@ -2,7 +2,7 @@ import styles from './style.module.scss'
 
 const Courses = () => {
   return (
-    <div className={styles.courses}>
+    <div className="wrapper">
       <ul className={styles.list}>
         <li className={styles.item}>
           <img className={styles.img} src="https://img2.sycdn.imooc.com/szimg/617f576208465e0a12000676-360-202.jpg" alt="img"/>
@@ -86,7 +86,7 @@ const Courses = () => {
           </p>
         </li>
       </ul>
-    </div>
+    </div>  
   )
 }
 export default Courses

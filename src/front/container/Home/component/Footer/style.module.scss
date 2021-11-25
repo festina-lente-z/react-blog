@@ -1,0 +1,13 @@
+.footer {
+  height: 60px;
+  .list {
+    list-style-type: none;
+    .item {
+      line-height: 60px;
+      .link {
+        color: green;
+        text-decoration: none;
+      }
+    }
+  }
+}
