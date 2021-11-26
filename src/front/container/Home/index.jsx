@@ -1,6 +1,9 @@
 import Banner from './component/Banner'
 import Courses from './component/Courses'
 import Footer from './component/Footer'
+import { parseJsonByString } from '../../../common/utils'
+
+const listData = parseJsonByString(window.localStorage.homeData,[])
 
 const Home = () => {
   return (
@@ -8,6 +11,11 @@ const Home = () => {
       <Banner/>
       <Courses/>
       <Footer/>
+      {
+        listData.map(item => {
+          return <div className="wrapper">area</div>
+        })
+      }
     </div>
   )
 }

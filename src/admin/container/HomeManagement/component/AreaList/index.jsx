@@ -2,9 +2,12 @@ import { useState } from 'react'
 import { Button } from 'antd'
 import styles from './style.module.scss'
 import { DeleteTwoTone } from '@ant-design/icons'
+import { parseJsonByString } from '../../../../../common/utils'
+
+const listData = parseJsonByString(window.localStorage.homeData,[])
 
 const AreaList = () => {
-  const [ list, setList ] = useState([])
+  const [ list, setList ] = useState(listData)
   const handleAddBtnClick = () => {
     const newList = [...list]
     newList.push({})
@@ -16,7 +19,8 @@ const AreaList = () => {
     setList(newList)
   }
   const handleSaveBtnClick = () => {
-    
+    const listDate = JSON.stringify(list)
+    window.localStorage.homeData = listDate
   }
   return (
     <div>
