@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from 'antd'
 import styles from './style.module.scss'
-import { DeleteTwoTone } from '@ant-design/icons'
+import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons'
 import { parseJsonByString } from '../../../../../common/utils'
 
 const listData = parseJsonByString(window.localStorage.homeData,[])
@@ -18,10 +18,7 @@ const AreaList = () => {
     newList.splice(index, 1)
     setList(newList)
   }
-  const handleSaveBtnClick = () => {
-    const listDate = JSON.stringify(list)
-    window.localStorage.homeData = listDate
-  }
+  
   return (
     <div>
       <ul className={styles.list}>
@@ -41,8 +38,8 @@ const AreaList = () => {
           ))
         }
       </ul>
-      <Button type="primary" ghost onClick={handleAddBtnClick}>新增页面区块</Button>
-      <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button>
+      <Button type="dashed" className={styles.btn} icon={<PlusOutlined />} onClick={handleAddBtnClick}>新增页面区块</Button>
+      
     </div>
   )
 }

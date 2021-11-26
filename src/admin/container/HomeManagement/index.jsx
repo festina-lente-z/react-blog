@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Button } from 'antd'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -7,6 +7,7 @@ import {
   RollbackOutlined,
 } from '@ant-design/icons'
 import AreaList from './component/AreaList'
+import PageSetting from './component/PageSetting'
 import styles from './style.module.scss'
 
 const { Header, Sider, Content } = Layout
@@ -20,9 +21,13 @@ const useCollapsed = () => {
 const HomeManagement = () => {
   const { collapsed, toggleCollapsed } = useCollapsed()
   const handleHomePageRedirect = () => {window.location.href = "/"}
+  const handleSaveBtnClick = () => {
+    // const listDate = JSON.stringify(list)
+    // window.localStorage.homeData = listDate
+  }
 
   return (
-    <Layout>
+    <Layout style={{minHeight:"100vh"}}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['admin-home']}>
@@ -38,7 +43,7 @@ const HomeManagement = () => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout" style={{height: '100vh'}}>
+      <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
           {
             collapsed
@@ -47,7 +52,9 @@ const HomeManagement = () => {
           }
         </Header>
         <Content className={styles.content}>
+          <PageSetting/>
           <AreaList/>
+          <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button> 
         </Content>
       </Layout>
     </Layout>
