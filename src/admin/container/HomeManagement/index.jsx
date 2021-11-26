@@ -6,6 +6,7 @@ import {
   HomeOutlined,
   RollbackOutlined,
 } from '@ant-design/icons'
+import AreaList from './component/AreaList'
 import styles from './style.module.scss'
 
 const { Header, Sider, Content } = Layout
@@ -45,14 +46,8 @@ const HomeManagement = () => {
               : <MenuFoldOutlined className={styles.trigger} onClick={toggleCollapsed}/>
           }
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-          }}
-        >
-          Content
+        <Content className={styles.content}>
+          <AreaList/>
         </Content>
       </Layout>
     </Layout>
