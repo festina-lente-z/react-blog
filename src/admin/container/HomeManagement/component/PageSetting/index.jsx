@@ -1,12 +1,14 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
 import { Form, Input} from 'antd'
-// import styles from './style.module.scss'
+import { parseJsonByString } from '../../../../../common/utils'
 
 const { TextArea } = Input
 
+const  schema = parseJsonByString(window.localStorage?.schema, {})
+
 const PageSetting = (props, ref) => {
-  const [title, setTitle] = useState(window.localStorage.title || '')
-  const [description, setDescription] = useState(window.localStorage.description || '')
+  const [title, setTitle] = useState(schema?.children?.[0]?.attributes?.title || '')
+  const [description, setDescription] = useState(schema?.children?.[0]?.attributes?.description || '')
   const handleTitleChange = (e) => {
     setTitle(e.target.value)
   }

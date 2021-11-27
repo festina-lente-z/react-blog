@@ -24,10 +24,28 @@ const HomeManagement = () => {
   const pageSettingRef = useRef()
   const areaListRef = useRef()
   const handleSaveBtnClick = () => {
-    const listData = JSON.stringify(areaListRef.current.list)
-    window.localStorage.homeData = listData
-    window.localStorage.title = pageSettingRef.current.title
-    window.localStorage.description = pageSettingRef.current.description
+    const schema = {
+      name: 'Page',
+      attributes: {},
+      children: [{
+        name: 'Banner',
+        attributes: {
+          title: pageSettingRef.current.title,
+          description: pageSettingRef.current.description
+        }
+      }, {
+        name: 'CourseList'
+      }, {
+        name: 'Footer'
+      }]
+    }
+    areaListRef.current.list.forEach(item => {
+      schema.children.push({
+        name: 'Area'
+      })
+    })
+    const schemaStr = JSON.stringify(schema)
+    window.localStorage.schema = schemaStr
   }
 
   return (

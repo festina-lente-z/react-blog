@@ -1,8 +1,11 @@
+import { parseJsonByString } from '../../../../../common/utils'
 import styles from './style.module.scss'
 
+const schema = parseJsonByString(window.localStorage?.schema,{})
+
 const Banner = () => {
-  const title = window.localStorage.title || 'festinalente的博客'
-  const description = window.localStorage.description || '热爱前端，热爱生活。'
+  const title = schema?.children?.[0]?.attributes?.title || 'festinalente的博客'
+  const description = schema?.children?.[0]?.attributes?.description || '热爱前端，热爱生活。'
   return (
     <div className="wrapper">
       <div className={styles.banner}>

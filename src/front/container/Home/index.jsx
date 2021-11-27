@@ -3,7 +3,8 @@ import Courses from './component/Courses'
 import Footer from './component/Footer'
 import { parseJsonByString } from '../../../common/utils'
 
-const listData = parseJsonByString(window.localStorage.homeData,[])
+const schema = parseJsonByString(window.localStorage?.schema,{})
+const listData = schema?.children?.splice(3)
 
 const Home = () => {
   return (

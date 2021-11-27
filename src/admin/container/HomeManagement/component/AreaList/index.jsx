@@ -4,7 +4,8 @@ import styles from './style.module.scss'
 import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons'
 import { parseJsonByString } from '../../../../../common/utils'
 
-const listData = parseJsonByString(window.localStorage.homeData,[])
+const schema = parseJsonByString(window.localStorage.schema,{})
+const listData = schema?.children?.splice(3)
 
 const AreaList = (props, ref) => {
   const [ list, setList ] = useState(listData)
