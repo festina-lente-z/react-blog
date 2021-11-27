@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Layout, Menu, Button } from 'antd'
 import {
   MenuUnfoldOutlined,
@@ -21,9 +21,13 @@ const useCollapsed = () => {
 const HomeManagement = () => {
   const { collapsed, toggleCollapsed } = useCollapsed()
   const handleHomePageRedirect = () => {window.location.href = "/"}
+  const pageSettingRef = useRef()
+  const areaListRef = useRef()
   const handleSaveBtnClick = () => {
-    // const listDate = JSON.stringify(list)
-    // window.localStorage.homeData = listDate
+    const listData = JSON.stringify(areaListRef.current.list)
+    window.localStorage.homeData = listData
+    window.localStorage.title = pageSettingRef.current.title
+    window.localStorage.description = pageSettingRef.current.description
   }
 
   return (
@@ -52,8 +56,8 @@ const HomeManagement = () => {
           }
         </Header>
         <Content className={styles.content}>
-          <PageSetting/>
-          <AreaList/>
+          <PageSetting ref={pageSettingRef}/>
+          <AreaList ref={areaListRef}/>
           <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button> 
         </Content>
       </Layout>

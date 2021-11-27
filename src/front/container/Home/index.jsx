@@ -12,8 +12,8 @@ const Home = () => {
       <Courses/>
       <Footer/>
       {
-        listData.map(item => {
-          return <div className="wrapper">area</div>
+        listData.map((item,index) => {
+          return <div key={index} className="wrapper">area</div>
         })
       }
     </div>

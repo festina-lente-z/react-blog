@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, forwardRef, useImperativeHandle } from 'react'
 import { Button } from 'antd'
 import styles from './style.module.scss'
 import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons'
@@ -6,7 +6,7 @@ import { parseJsonByString } from '../../../../../common/utils'
 
 const listData = parseJsonByString(window.localStorage.homeData,[])
 
-const AreaList = () => {
+const AreaList = (props, ref) => {
   const [ list, setList ] = useState(listData)
   const handleAddBtnClick = () => {
     const newList = [...list]
@@ -18,7 +18,9 @@ const AreaList = () => {
     newList.splice(index, 1)
     setList(newList)
   }
-  
+  useImperativeHandle(ref, () => {
+    return { list }
+  })
   return (
     <div>
       <ul className={styles.list}>
@@ -44,4 +46,4 @@ const AreaList = () => {
   )
 }
 
-export default AreaList
+export default forwardRef(AreaList)
