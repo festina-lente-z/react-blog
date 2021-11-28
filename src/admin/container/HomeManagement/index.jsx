@@ -8,9 +8,12 @@ import {
 } from '@ant-design/icons'
 import AreaList from './component/AreaList'
 import PageSetting from './component/PageSetting'
+import { parseJsonByString } from '../../../common/utils'
 import styles from './style.module.scss'
 
 const { Header, Sider, Content } = Layout
+
+const schema = parseJsonByString(window.localStorage.schema, {})
 
 const useCollapsed = () => {
   const [ collapsed, setCollapsed ] = useState(false)
@@ -24,28 +27,9 @@ const HomeManagement = () => {
   const pageSettingRef = useRef()
   const areaListRef = useRef()
   const handleSaveBtnClick = () => {
-    const schema = {
-      name: 'Page',
-      attributes: {},
-      children: [{
-        name: 'Banner',
-        attributes: {
-          title: pageSettingRef.current.title,
-          description: pageSettingRef.current.description
-        }
-      }, {
-        name: 'CourseList'
-      }, {
-        name: 'Footer'
-      }]
-    }
-    areaListRef.current.list.forEach(item => {
-      schema.children.push({
-        name: 'Area'
-      })
-    })
-    const schemaStr = JSON.stringify(schema)
-    window.localStorage.schema = schemaStr
+    const { children } = areaListRef.current
+    const schema = { name: 'Page', attributes: {}, children }
+    window.localStorage.schema = JSON.stringify(schema)
   }
 
   return (
@@ -75,7 +59,7 @@ const HomeManagement = () => {
         </Header>
         <Content className={styles.content}>
           <PageSetting ref={pageSettingRef}/>
-          <AreaList ref={areaListRef}/>
+          <AreaList ref={areaListRef} children={schema.children || []}/>
           <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button> 
         </Content>
       </Layout>
