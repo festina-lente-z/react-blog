@@ -5,8 +5,6 @@ import 'antd/dist/antd.css'
 import HomeManagement from './container/HomeManagement'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <HomeManagement/>
-  </React.StrictMode>,
+  <HomeManagement/>,
   document.getElementById('root')
 );

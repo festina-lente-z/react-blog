@@ -16,6 +16,11 @@ const AreaList = (props, ref) => {
     newList.splice(index, 1)
     setList(newList)
   }
+  const changeChildrenItem = (index, child) => {
+    const newList = [...list]
+    newList.splice(index, 1, child)
+    setList(newList)
+  }
   useImperativeHandle(ref, () => {
     return { children: list }
   })
@@ -24,7 +29,13 @@ const AreaList = (props, ref) => {
       <ul className={styles.list}>
         {
           list.map((item,index) => (
-            <AreaItem key={index} index={index} removeItemFromChildren={removeItemFromChildren}/>
+            <AreaItem 
+              key={index} 
+              index={index}
+              item={item} 
+              removeItemFromChildren={removeItemFromChildren}
+              changeChildrenItem={changeChildrenItem}
+            />
           ))
         }
       </ul>
