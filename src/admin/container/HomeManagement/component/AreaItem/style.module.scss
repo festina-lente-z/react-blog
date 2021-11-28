@@ -1,0 +1,15 @@
+.item {
+  display: flex;
+  line-height: 40px;
+  margin-bottom: 25px;
+  padding: 0 10px;
+  background: #fff;
+  border: 1px dashed #ccc;
+  color: #ccc;
+  &:last-of-type  {
+    margin-bottom: 30px;
+  }
+  .content {
+    flex: 1;
+  }
+}

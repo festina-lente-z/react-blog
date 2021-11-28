@@ -1,16 +1,17 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
 import { Button } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+import AreaItem from '../AreaItem'
 import styles from './style.module.scss'
-import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons'
 
 const AreaList = (props, ref) => {
   const [ list, setList ] = useState(props.children)
-  const handleAddBtnClick = () => {
+  const addItemToChildren = () => {
     const newList = [...list]
     newList.push({})
     setList(newList)
   }
-  const handleDeleteBtnClick = (index) => {
+  const removeItemFromChildren = (index) => {
     const newList = [...list]
     newList.splice(index, 1)
     setList(newList)
@@ -23,21 +24,11 @@ const AreaList = (props, ref) => {
       <ul className={styles.list}>
         {
           list.map((item,index) => (
-            <li key={index} className={styles.item}>
-              <span className={styles.content}>当前区块内容为空</span>
-              <span>
-                <Button 
-                  type="text" 
-                  shape="circle" 
-                  icon={<DeleteTwoTone twoToneColor="#f5222d"/>}
-                  onClick={() => handleDeleteBtnClick(index)}
-                />
-              </span>
-            </li>
+            <AreaItem key={index} index={index} removeItemFromChildren={removeItemFromChildren}/>
           ))
         }
       </ul>
-      <Button type="dashed" className={styles.btn} icon={<PlusOutlined />} onClick={handleAddBtnClick}>新增页面区块</Button>
+      <Button type="dashed" className={styles.btn} icon={<PlusOutlined />} onClick={addItemToChildren}>新增页面区块</Button>
       
     </div>
   )
