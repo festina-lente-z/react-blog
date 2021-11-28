@@ -1,11 +1,17 @@
-import { useState, forwardRef, useImperativeHandle } from 'react'
+import { useState, forwardRef, useImperativeHandle, createRef, useMemo } from 'react'
 import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import AreaItem from '../AreaItem'
 import styles from './style.module.scss'
 
+let refs = []
+
 const AreaList = (props, ref) => {
   const [ list, setList ] = useState(props.children)
+  useMemo(() => {
+    refs = list.map(item => createRef())
+  }, [list])
+
   const addItemToChildren = () => {
     const newList = [...list]
     newList.push({})
@@ -16,13 +22,17 @@ const AreaList = (props, ref) => {
     newList.splice(index, 1)
     setList(newList)
   }
-  const changeChildrenItem = (index, child) => {
-    const newList = [...list]
-    newList.splice(index, 1, child)
-    setList(newList)
-  }
+  
   useImperativeHandle(ref, () => {
-    return { children: list }
+    return {
+      getSchema: () => {
+        const schema = []
+        list.forEach((item, index) => {
+          schema.push(refs[index].current.getSchema())
+        })
+        return schema
+      }
+    }  
   })
   return (
     <div>
@@ -34,7 +44,7 @@ const AreaList = (props, ref) => {
               index={index}
               item={item} 
               removeItemFromChildren={removeItemFromChildren}
-              changeChildrenItem={changeChildrenItem}
+              ref={refs[index]}
             />
           ))
         }

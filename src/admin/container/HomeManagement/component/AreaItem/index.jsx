@@ -1,34 +1,48 @@
-import { useState } from 'react'
+import { useState, forwardRef, useImperativeHandle } from 'react'
 import { Button, Modal, Select } from 'antd'
 import { DeleteTwoTone } from '@ant-design/icons'
 import styles from './style.module.scss'
 
 const { Option } = Select
 
-const AreaItem = (props) => {
-  const { index, item, changeChildrenItem, removeItemFromChildren } = props
+let prevSchema = {}
+
+const AreaItem = (props, ref) => {
+  const { index, item, removeItemFromChildren } = props
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [schema, setSchema] = useState(item)
+
+  useImperativeHandle(ref, () => {
+    return {
+      getSchema: () => {
+        return schema
+      }
+    }
+  })
   const showModal = () => {
     setIsModalVisible(true)
   }
 
   const handleModalOk = () => {
     setIsModalVisible(false)
-    changeChildrenItem(index, schema)
+    prevSchema = {}
   }
 
   const handleModalCancel = () => {
-    setSchema(item)
+    setSchema(prevSchema)
     setIsModalVisible(false)
+    prevSchema = {}
   }
   const handleSelectorChange = (value) => {
-    const schema = {name: value, attributes: {}, children: []}
-    setSchema(schema)
+    prevSchema = {...schema}
+    const newSchema = {name: value, attributes: {}, children: []}
+    setSchema(newSchema)
   }
   return (
     <li className={styles.item}>
-      <span className={styles.content} onClick={showModal}>当前区块内容为空</span>
+      <span className={styles.content} onClick={showModal}>
+        {schema.name ? schema.name + '组件' : '当前区块为空'}
+      </span>
       <span>
         <Button 
           type="text" 
@@ -48,4 +62,4 @@ const AreaItem = (props) => {
   )
 }
 
-export default AreaItem
+export default forwardRef(AreaItem)

@@ -27,8 +27,8 @@ const HomeManagement = () => {
   const pageSettingRef = useRef()
   const areaListRef = useRef()
   const handleSaveBtnClick = () => {
-    const { children } = areaListRef.current
-    const schema = { name: 'Page', attributes: {}, children }
+    const { getSchema } = areaListRef.current
+    const schema = { name: 'Page', attributes: {}, children: getSchema() }
     window.localStorage.schema = JSON.stringify(schema)
   }
 
