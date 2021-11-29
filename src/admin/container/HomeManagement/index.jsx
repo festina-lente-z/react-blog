@@ -13,7 +13,7 @@ import styles from './style.module.scss'
 
 const { Header, Sider, Content } = Layout
 
-const schema = parseJsonByString(window.localStorage.schema, {})
+const initialSchema = parseJsonByString(window.localStorage.schema, {})
 
 const useCollapsed = () => {
   const [ collapsed, setCollapsed ] = useState(false)
@@ -23,6 +23,7 @@ const useCollapsed = () => {
 
 const HomeManagement = () => {
   const { collapsed, toggleCollapsed } = useCollapsed()
+  const [ schema, setSchema ] = useState(initialSchema)
   const handleHomePageRedirect = () => {window.location.href = "/"}
   const pageSettingRef = useRef()
   const areaListRef = useRef()
@@ -30,6 +31,10 @@ const HomeManagement = () => {
     const { getSchema } = areaListRef.current
     const schema = { name: 'Page', attributes: {}, children: getSchema() }
     window.localStorage.schema = JSON.stringify(schema)
+  }
+  const handleResetBtnClick = () => {
+    const newSchema = parseJsonByString(window.localStorage.schema, {})
+    setSchema(newSchema)
   }
 
   return (
@@ -60,7 +65,8 @@ const HomeManagement = () => {
         <Content className={styles.content}>
           <PageSetting ref={pageSettingRef}/>
           <AreaList ref={areaListRef} children={schema.children || []}/>
-          <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button> 
+          <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button>
+          <Button className={styles.reset} onClick={handleResetBtnClick}>重置区块配置</Button> 
         </Content>
       </Layout>
     </Layout>

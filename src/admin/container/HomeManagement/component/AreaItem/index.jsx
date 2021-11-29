@@ -1,16 +1,20 @@
-import { useState, forwardRef, useImperativeHandle } from 'react'
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Button, Modal, Select } from 'antd'
 import { DeleteTwoTone } from '@ant-design/icons'
 import styles from './style.module.scss'
 
 const { Option } = Select
 
-let prevSchema = {}
-
 const AreaItem = (props, ref) => {
   const { index, item, removeItemFromChildren } = props
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [schema, setSchema] = useState(item)
+  const [ isModalVisible, setIsModalVisible ] = useState(false)
+  const [ tempSchema, setTempSchema ] = useState(item)
+  const [ schema, setSchema ] = useState(item)
+
+  useEffect(() => {
+    setSchema(item)
+    setTempSchema(item)
+  }, [item])
 
   useImperativeHandle(ref, () => {
     return {
@@ -25,18 +29,16 @@ const AreaItem = (props, ref) => {
 
   const handleModalOk = () => {
     setIsModalVisible(false)
-    prevSchema = {}
+    setSchema(tempSchema)
   }
 
   const handleModalCancel = () => {
-    setSchema(prevSchema)
     setIsModalVisible(false)
-    prevSchema = {}
+    setTempSchema(schema)
   }
   const handleSelectorChange = (value) => {
-    prevSchema = {...schema}
     const newSchema = {name: value, attributes: {}, children: []}
-    setSchema(newSchema)
+    setTempSchema(newSchema)
   }
   return (
     <li className={styles.item}>
@@ -52,7 +54,7 @@ const AreaItem = (props, ref) => {
         />
       </span>
       <Modal title="选择组件" visible={isModalVisible} onOk={handleModalOk} onCancel={handleModalCancel}>
-        <Select value={schema.name} style={{ width: '100%' }} onChange={handleSelectorChange}>
+        <Select value={tempSchema.name} style={{ width: '100%' }} onChange={handleSelectorChange}>
           <Option value="Banner">Banner 组件</Option>
           <Option value="List">List 组件</Option>
           <Option value="Footer">Footer 组件</Option>   
