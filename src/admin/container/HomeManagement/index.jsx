@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Layout, Menu, Button } from 'antd'
 import {
   MenuUnfoldOutlined,
@@ -10,10 +11,9 @@ import AreaList from './component/AreaList'
 import PageSetting from './component/PageSetting'
 import { parseJsonByString } from '../../../common/utils'
 import styles from './style.module.scss'
+import { getChangeSchemaAction } from './store/action'
 
 const { Header, Sider, Content } = Layout
-
-const initialSchema = parseJsonByString(window.localStorage.schema, {})
 
 const useCollapsed = () => {
   const [ collapsed, setCollapsed ] = useState(false)
@@ -21,20 +21,26 @@ const useCollapsed = () => {
   return { collapsed, toggleCollapsed }
 }
 
+const useStore = () => {
+  const dispatch = useDispatch()
+  const schema = useSelector((state) => state.homeManagement.schema)
+  const changeSchema = (schema) => dispatch(getChangeSchemaAction(schema))
+  
+  return { schema, changeSchema }
+}
+
 const HomeManagement = () => {
+  // 把action通过dispatch方法传给reducer
+  
   const { collapsed, toggleCollapsed } = useCollapsed()
-  const [ schema, setSchema ] = useState(initialSchema)
+  const { schema, changeSchema } = useStore()
   const handleHomePageRedirect = () => {window.location.href = "/"}
-  const pageSettingRef = useRef()
-  const areaListRef = useRef()
+
   const handleSaveBtnClick = () => {
-    const { getSchema } = areaListRef.current
-    const schema = { name: 'Page', attributes: {}, children: getSchema() }
     window.localStorage.schema = JSON.stringify(schema)
   }
   const handleResetBtnClick = () => {
-    const newSchema = parseJsonByString(window.localStorage.schema, {})
-    setSchema(newSchema)
+    changeSchema(parseJsonByString(window.localStorage.schema, {}))
   }
 
   return (
@@ -63,8 +69,8 @@ const HomeManagement = () => {
           }
         </Header>
         <Content className={styles.content}>
-          <PageSetting ref={pageSettingRef}/>
-          <AreaList ref={areaListRef} children={schema.children || []}/>
+          <PageSetting />
+          <AreaList/>
           <Button type="primary" className={styles.save} onClick={handleSaveBtnClick}>保存区块配置</Button>
           <Button className={styles.reset} onClick={handleResetBtnClick}>重置区块配置</Button> 
         </Content>

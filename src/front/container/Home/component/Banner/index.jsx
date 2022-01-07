@@ -1,9 +1,9 @@
-import { parseJsonByString } from '../../../../../common/utils'
+// import { parseJsonByString } from '../../../../../common/utils'
 import styles from './style.module.scss'
 
-const schema = parseJsonByString(window.localStorage?.schema,{})
+// const schema = parseJsonByString(window.localStorage?.schema,{})
 
-const Banner = () => {
+const Banner = ({ schema }) => {
   const title = schema?.children?.[0]?.attributes?.title || 'festinalente的博客'
   const description = schema?.children?.[0]?.attributes?.description || '热爱前端，热爱生活。'
   return (

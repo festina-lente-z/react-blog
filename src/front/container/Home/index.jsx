@@ -1,20 +1,24 @@
 import Banner from './component/Banner'
-import Courses from './component/Courses'
+import List from './component/List'
 import Footer from './component/Footer'
 import { parseJsonByString } from '../../../common/utils'
 
-const schema = parseJsonByString(window.localStorage?.schema,{})
-const listData = schema?.children?.splice(3)
+const pageSchema = parseJsonByString(window.localStorage?.schema,{})
+const children = pageSchema.children || []
+
+const map = { Banner, List, Footer }
+
+const render = (item, index) => {
+  const Component = map[item.name]
+  return Component ? <Component key={index} schema={item}/> : null
+}
 
 const Home = () => {
   return (
     <div>
-      <Banner/>
-      <Courses/>
-      <Footer/>
       {
-        listData.map((item,index) => {
-          return <div key={index} className="wrapper">area</div>
+        children.map((item,index) => {
+          return render(item, index)
         })
       }
     </div>
