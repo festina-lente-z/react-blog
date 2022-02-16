@@ -1,0 +1,28 @@
+.wrapper {
+  margin-top: 20px;
+  .button {
+    margin: 10px 0;
+  }
+  .area {
+    position: relative;
+    border: 1px dashed #ccc;
+    margin-bottom: 20px;
+    padding: 15px;
+    .delete {
+      position: absolute;
+      right: -12px;
+      top: -12px;
+    }
+    .row {
+      display: flex;
+      margin-bottom: 10px;
+      .label {
+        line-height: 32px;
+        width: 70px;
+      }
+      .content {
+        flex: 1;
+      }
+    }
+  } 
+}

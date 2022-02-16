@@ -3,13 +3,22 @@ import {
   ADD_PAGE_CHILDREN, 
   CHANGE_PAGE_CHILD, 
   REMOVE_PAGE_CHILD, 
-  CHANGE_PAGE_CHILE_POSITION 
+  CHANGE_PAGE_CHILE_POSITION,
+  CHANGE_PAGE_ATTRIBUTE 
 } from './constant'
 
 export const getChangeSchemaAction = (schema) => {
   return {
     type: CHANGE_SHCEMA,
     value: schema
+  }
+}
+
+export const getChangePageAttributeAction = (key, value) => {
+  return {
+    type: CHANGE_PAGE_ATTRIBUTE,
+    key,
+    value
   }
 }
 

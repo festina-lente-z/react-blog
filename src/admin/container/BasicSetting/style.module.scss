@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  .title {
+    width: 100px;
+    line-height: 32px;
+  }
+  .content {
+    flex: 1;
+  }
+}
+
+.save {
+  margin-top: 25px;
+}
+.reset {
+  margin-left: 15px;
+}

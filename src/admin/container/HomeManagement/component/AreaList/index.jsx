@@ -3,7 +3,7 @@ import { SortableContainer } from 'react-sortable-hoc'
 import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import AreaItem from '../AreaItem'
-import { getAddPageChildrenAction, getChangePageChildPositionAction } from '../../store/action'
+import { getAddPageChildrenAction, getChangePageChildPositionAction } from '../../../../store/action'
 import styles from './style.module.scss'
 
 const SortableList = SortableContainer(({list}) => {
@@ -18,7 +18,7 @@ const SortableList = SortableContainer(({list}) => {
 
 const AreaList = () => {
   const dispatch = useDispatch()
-  const children = useSelector((state) => state.homeManagement.schema?.children || [])
+  const children = useSelector((state) => state.common.schema?.children || [])
 
   const addPageToChildren = () => {
     dispatch(getAddPageChildrenAction())
