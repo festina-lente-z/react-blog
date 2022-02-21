@@ -4,7 +4,7 @@
 ## 功能展示
 ### 后台配置
 - 自定义模块
-  ![alt](https://festinalente.oss-cn-beijing.aliyuncs.com/img/1.gif?Expires=1645438421&OSSAccessKeyId=TMP.3KhyJHWTyi5GgDptpfYHPYrbBAB4fgZESLKoJfzFg2aGSGVNCBpG8N3cuv2D8d7W5QPwZYN9G7XBR7ZbYRAFviCynZFJy4&Signature=zeJYvL9jNUokOaE3EBByjD9mN3o%3D)
+  ![alt](http://festinalente.oss-cn-beijing.aliyuncs.com/img/1.gif)
 - 模块增删及拖拽
 ### 前台展示
 ## schema结构
