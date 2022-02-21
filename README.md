@@ -4,7 +4,7 @@
 ## 功能展示
 ### 后台配置
 - 自定义模块
-  ![alt](http://festinalente.oss-cn-beijing.aliyuncs.com/img/1.gif)
+  ![alt](https://github.com/festina-lente-z/react-blog-notes/blob/master/img/1.gif)
 - 模块增删及拖拽
 ### 前台展示
 ## schema结构
