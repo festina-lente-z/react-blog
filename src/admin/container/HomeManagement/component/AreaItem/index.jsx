@@ -50,7 +50,7 @@ const AreaItem = (props) => {
     setTempPageChild({name: value, attributes: {}, children: []})
   }
   const changeTempPageChildAttributes = (kvObj) => {
-    console.log(kvObj)
+    // console.log(kvObj)
     const newTempPageChild = { ...tempPageChild }
     for(let key in kvObj) {
       newTempPageChild.attributes[key] = kvObj[key]
@@ -64,7 +64,7 @@ const AreaItem = (props) => {
   }
   const getComponent = () => {
     const { name } = tempPageChild
-    console.log(tempPageChild)
+    // console.log(tempPageChild)
     const Component = name ? map[name] : null
     return Component ? (
       <Component {...tempPageChild} changeAttributes={changeTempPageChildAttributes} changeChildren={changeTempPageChildChildren}/>

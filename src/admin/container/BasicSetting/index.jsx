@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 import { Button, Input } from 'antd'
 import { parseJsonByString } from '../../../common/utils'
 import styles from './style.module.scss'
@@ -21,10 +22,17 @@ export default function BasicSetting() {
   const { attributes = {} } = schema
   const { title = '' } = attributes
   const handleSaveBtnClick = () => {
-    window.localStorage.schema = JSON.stringify(schema)
+    axios.post('/api/schema/save', {
+      schema: JSON.stringify(schema)
+    }).then(() => {})
   }
   const handleResetBtnClick = () => {
-    changeSchema(parseJsonByString(window.localStorage.schema, {}))
+    axios.get('/api/schema/getLatestOne').then((response) => {
+      const data = response.data.data;
+      if(data) {
+        changeSchema(parseJsonByString(data.schema,{}));
+      }
+    })
   }
   const handleTitleChange = useCallback((e) => {
     changePageAttribute('title', e.target.value)

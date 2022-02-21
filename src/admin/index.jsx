@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { Provider, useSelector, useDispatch } from 'react-redux'
 import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import axios from 'axios'
+import { parseJsonByString } from '../common/utils'
 import store from './store'
+import { getChangeSchemaAction, getChangePageAttributeAction } from './store/action'
 
 import { Layout, Menu } from 'antd'
 import {
@@ -26,9 +29,30 @@ const useCollapsed = () => {
   return { collapsed, toggleCollapsed }
 }
 
+const useStore = () => {
+  const dispatch = useDispatch()
+  const schema = useSelector((state) => state.common.schema)
+  const changeSchema = (schema) => {
+    dispatch(getChangeSchemaAction(schema));
+  }
+  const changePageAttribute = (key, value) => {
+    dispatch(getChangePageAttributeAction(key, value))
+  }
+  return { schema, changeSchema, changePageAttribute }
+}
+
 const Wrapper = () => {
   const { collapsed, toggleCollapsed } = useCollapsed()
   const handleHomePageRedirect = () => {window.location.href = "/"}
+  const { changeSchema } = useStore()
+  
+  useEffect(() => {
+    axios.get('/api/schema/getLatestOne').then((response) => {
+      const data = response?.data?.data
+      data && changeSchema(parseJsonByString(data.schema, {}))
+    })
+  }, [changeSchema])
+
   return (
     <Router>
       <Layout style={{minHeight:"100vh"}}>

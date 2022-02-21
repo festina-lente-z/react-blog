@@ -1,8 +1,6 @@
 // import { parseJsonByString } from '../../../../../common/utils'
 import styles from './style.module.scss'
 
-// const schema = parseJsonByString(window.localStorage?.schema,{})
-
 const Banner = ({ schema }) => {
   const { attributes = {}} = schema
   const { title, description, showSmallPic, smallPicUrl, backgroundUrl, backgroundHeight } = attributes

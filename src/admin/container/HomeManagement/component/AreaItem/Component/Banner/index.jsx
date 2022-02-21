@@ -1,4 +1,4 @@
-import { Form, Input, Switch, InputNumber} from 'antd'
+import { Form, Input, Switch } from 'antd'
 import styles from './style.module.scss'
 
 const { TextArea } = Input

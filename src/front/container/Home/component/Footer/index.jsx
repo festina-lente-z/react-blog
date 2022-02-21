@@ -1,4 +1,3 @@
-import { Children } from 'react'
 import styles from './style.module.scss'
 
 const Footer = ({ schema }) => {
@@ -14,7 +13,7 @@ const Footer = ({ schema }) => {
               const { title, link } = attributes
               return (
                 <li className={styles.item} key={index}>
-                  <a className={styles.link} href={link} target="_blank">
+                  <a className={styles.link} href={link} target="_blank" rel="noreferrer">
                     {title}
                   </a>
                 </li>

@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 import { Button } from 'antd'
 import AreaList from './component/AreaList'
 // import PageSetting from './component/PageSetting'
@@ -18,10 +19,17 @@ const HomeManagement = () => {
   // 把action通过dispatch方法传给reducer
   const { schema, changeSchema } = useStore()
   const handleSaveBtnClick = () => {
-    window.localStorage.schema = JSON.stringify(schema)
+    axios.post('/api/schema/save', {
+      schema: JSON.stringify(schema)
+    }).then(() => {})
   }
   const handleResetBtnClick = () => {
-    changeSchema(parseJsonByString(window.localStorage.schema, {}))
+    axios.get('/api/schema/getLatestOne').then((response) => {
+      const data = response?.data?.data;
+      if(data) {
+        changeSchema(parseJsonByString(data.schema,{}));
+      }
+    })
   }
   return (
     <div>

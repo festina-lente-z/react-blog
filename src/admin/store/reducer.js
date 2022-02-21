@@ -1,5 +1,5 @@
 import { produce } from 'immer'
-import { parseJsonByString } from '../../common/utils'
+// import { parseJsonByString } from '../../common/utils'
 import { 
   CHANGE_SHCEMA, 
   ADD_PAGE_CHILDREN, 
@@ -9,11 +9,11 @@ import {
   CHANGE_PAGE_ATTRIBUTE
  } from './constant'
 
-const initialSchema = parseJsonByString(window.localStorage.schema, {
+const initialSchema = {
   name: 'Page',
   attributes: {},
   children: []
-})
+}
 
 const defaultState = {
   schema: initialSchema
