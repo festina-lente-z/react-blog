@@ -2,6 +2,7 @@
 - 前端：React、React Hook、Redux
 - 后端：Midway FaaS、云数据库RDS MySQL
 ## 功能展示
+![alt](https://github.com/festina-lente-z/react-blog-notes/blob/master/img/2.gif)
 ### 后台配置
 - 自定义模块
   ![alt](https://github.com/festina-lente-z/react-blog-notes/blob/master/img/1.gif)
