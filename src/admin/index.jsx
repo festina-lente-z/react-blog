@@ -31,14 +31,10 @@ const useCollapsed = () => {
 
 const useStore = () => {
   const dispatch = useDispatch()
-  const schema = useSelector((state) => state.common.schema)
   const changeSchema = (schema) => {
     dispatch(getChangeSchemaAction(schema));
   }
-  const changePageAttribute = (key, value) => {
-    dispatch(getChangePageAttributeAction(key, value))
-  }
-  return { schema, changeSchema, changePageAttribute }
+  return { changeSchema }
 }
 
 const Wrapper = () => {
